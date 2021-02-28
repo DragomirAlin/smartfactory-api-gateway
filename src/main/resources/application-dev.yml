@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+  sleuth:
+    sampler:
+      percentage:1.0
+    web:
+      additional-skip-pattern: (^cleanup.*|.+favicon.*)
+server:
+  port: 8080
+eureka:
+  client:
+    region: default
+    registry-fetch-interval-seconds: 5
+    serviceUrl:
+      defaultZone: http://192.168.1.5:8761/eureka
