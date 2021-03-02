@@ -6,12 +6,14 @@ spring:
       discovery:
         enabled: true
         service-id: config
-zuul:
-  routes:
-    user-management-service:
-        path: /user/**
-        uri: 192.158.1.5:8001
-
+    loadbalancer:
+      ribbon:
+        enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
   sleuth:
     sampler:
       percentage:1.0
