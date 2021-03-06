@@ -1,6 +1,7 @@
 package ro.dragomiralin.gateway.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
