@@ -30,9 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-            .withUser("user").password("password").roles("USER")
+            .withUser("user").password(encoder().encode("user")).roles("USER")
                 .and()
-            .withUser("admin").password(encoder.encode("admin")).roles("ADMIN");
+            .withUser("admin").password(encoder().encode("admin")).roles("ADMIN");
     }
 
     @Override
@@ -42,13 +42,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //            .defaultSuccessUrl("/home/index.html", true)
             .and()
         .authorizeRequests()
-//            .antMatchers(WHITELIST).permitAll()
-            .antMatchers(WHITELIST).hasRole("ADMIN")
+            .antMatchers(WHITELIST).hasAnyRole()
+            .antMatchers(SYSTEM_LIST).hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
         .logout()
             .and()
         .csrf().disable();
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

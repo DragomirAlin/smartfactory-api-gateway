@@ -29,7 +29,7 @@ eureka:
     fetchRegistry: true
     registry-fetch-interval-seconds: 5
     serviceUrl:
-      defaultZone: http://192.168.1.5:8761/eureka
+      defaultZone: http://discUser:discPassword@192.168.1.5:8761/eureka
 
 management:
   security:
