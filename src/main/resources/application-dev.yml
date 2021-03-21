@@ -10,16 +10,10 @@ spring:
       ribbon:
         enabled: true
     gateway:
-      routes:
-        - id: user-managenent
-          uri: http://192.158.1.5:8001/user
-          predicates:
-            - Path=/user/**
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
-
   security:
     oauth2:
       resourceserver:
@@ -27,10 +21,6 @@ spring:
           issuerUri: http://localhost:8083/auth/realms/baeldung
           jwkSetUri: http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/certs
 
-
-  redis:
-    host: localhost
-    port: 6379
 
 server:
   port: 8080

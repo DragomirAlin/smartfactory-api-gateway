@@ -12,7 +12,6 @@ import java.util.Map;
 @RestController
 public class AuthenticationController {
 
-
     @GetMapping("/me")
     public Map<String, Object> getUserInfo(@AuthenticationPrincipal Jwt principal) {
         Map<String, String> map = new Hashtable<String, String>();
