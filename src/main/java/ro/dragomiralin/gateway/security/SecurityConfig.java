@@ -1,59 +1,38 @@
 package ro.dragomiralin.gateway.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
-@EnableWebSecurity
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-    private static final String[] WHITELIST = {
-            "/login",
-            "/**",
-            "/user/**",
-            "/"
-    };
-
-    private static final String[] SYSTEM_LIST = {
-            "/eureka/**"
-    };
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-            .withUser("user").password(encoder().encode("user")).roles("USER")
-                .and()
-            .withUser("admin").password(encoder().encode("admin")).roles("ADMIN");
-    }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .formLogin()
-//            .defaultSuccessUrl("/home/index.html", true)
-            .and()
-        .authorizeRequests()
-            .antMatchers(WHITELIST).hasAnyRole()
-            .antMatchers(SYSTEM_LIST).hasRole("ADMIN")
-            .anyRequest().authenticated()
-            .and()
-        .logout()
-            .and()
-        .csrf().disable();
-    }
+    protected void configure(HttpSecurity http) throws Exception {// @formatter:off
+        http.cors()
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/me", "/api/foos/**")
+                .hasAuthority("SCOPE_read")
+                .antMatchers(HttpMethod.POST, "/api/foos")
+                .hasAuthority("SCOPE_write")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .oauth2ResourceServer()
+                .jwt();
+    }// @formatter:on
 
     @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
+    JwtDecoder jwtDecoder(OAuth2ResourceServerProperties properties) {
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(properties.getJwt().getJwkSetUri()).build();
+        jwtDecoder.setClaimSetConverter(new OrganizationSubClaimAdapter());
+        return jwtDecoder;
     }
-
 }
