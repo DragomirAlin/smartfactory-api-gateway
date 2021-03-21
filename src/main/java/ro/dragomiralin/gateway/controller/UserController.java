@@ -15,7 +15,7 @@ public class UserController {
     private final UserClient userClient;
 
     @GetMapping("/user")
-    public User getUset(){
+    public User getUser(){
         return userClient.getUser();
     }
 }
