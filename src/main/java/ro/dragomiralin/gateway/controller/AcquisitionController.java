@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ro.dragomiralin.gateway.client.DataAcquisitionClient;
 import ro.dragomiralin.gateway.client.dto.Message;
+import ro.dragomiralin.gateway.client.dto.Response;
 
 @RestController
 @RequestMapping("/mqtt")
@@ -14,12 +15,14 @@ public class AcquisitionController {
     private final DataAcquisitionClient dataAcquisitionClient;
 
     @GetMapping
-    public String getMqtt(@AuthenticationPrincipal Jwt principal) {
-        return dataAcquisitionClient.getHome();
+    public Response getMqtt(@AuthenticationPrincipal Jwt principal) {
+        return Response.builder()
+                .response(dataAcquisitionClient.getHome())
+                .build();
     }
 
     @PostMapping("/publish")
-    public void publish(@AuthenticationPrincipal Jwt principal, @RequestBody Message message){
+    public void publish(@AuthenticationPrincipal Jwt principal, @RequestBody Message message) {
         dataAcquisitionClient.publish(message);
     }
 

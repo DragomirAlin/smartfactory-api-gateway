@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ro.dragomiralin.gateway.client.NotificationClient;
 import ro.dragomiralin.gateway.client.dto.MailDTO;
+import ro.dragomiralin.gateway.client.dto.Response;
 import ro.dragomiralin.gateway.client.dto.SmsDTO;
 
 @RestController
@@ -15,8 +16,10 @@ public class NotificationController {
     private final NotificationClient notificationClient;
 
     @GetMapping
-    public String test() {
-        return notificationClient.test();
+    public Response test() {
+        return Response.builder()
+                .response(notificationClient.test())
+                .build();
     }
 
     @PostMapping("/mail")
