@@ -16,7 +16,7 @@ public class NotificationController {
 
     @GetMapping
     public String test() {
-        return "Notification Service";
+        return notificationClient.test();
     }
 
     @PostMapping("/mail")

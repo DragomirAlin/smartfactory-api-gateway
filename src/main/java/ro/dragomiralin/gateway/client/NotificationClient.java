@@ -12,13 +12,13 @@ import ro.dragomiralin.gateway.client.dto.SmsDTO;
 @RibbonClient(name = "notification-service")
 public interface NotificationClient {
 
-    @GetMapping
-   String test();
+    @GetMapping("/notification")
+    String test();
 
-    @PostMapping("/mail")
+    @PostMapping("/notification/mail")
     void sendMail(@RequestBody MailDTO mail);
 
 
-    @PostMapping("/sms")
+    @PostMapping("/notification/sms")
     void sendSMS(@RequestBody SmsDTO sms);
 }
