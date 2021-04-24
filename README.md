@@ -1,2 +1,2 @@
 # smartfactory-api-gateway
-an API gateway 
+API Gateway for Smart Factory project
