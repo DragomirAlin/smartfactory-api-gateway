@@ -14,7 +14,6 @@ import ro.dragomiralin.gateway.filter.SimpleFilter;
 @EnableZuulProxy
 @EnableEurekaClient
 @SpringBootApplication
-@Controller
 public class GatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
