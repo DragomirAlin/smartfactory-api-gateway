@@ -25,7 +25,6 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_CHANNEL: smartfactory
-        SLACK_COLOR: ${{ job.status }} 
-        SLACK_MESSAGE: 'Post Content :rocket:'
-        SLACK_TITLE: Post Title
+        SLACK_COLOR: ${{ job.status }}
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_USERNAME: GithubAction
