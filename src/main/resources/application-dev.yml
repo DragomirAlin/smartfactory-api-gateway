@@ -20,10 +20,8 @@ spring:
         jwt:
           issuerUri: http://localhost:8083/auth/realms/baeldung
           jwkSetUri: http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/certs
-
 server:
   port: 8080
-
 eureka:
   instance:
     prefer-ip-address: true
@@ -33,8 +31,15 @@ eureka:
     registry-fetch-interval-seconds: 5
     serviceUrl:
       defaultZone: http://discUser:discPassword@192.168.1.5:8761/eureka
-
 ribbon:
   eureka:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 

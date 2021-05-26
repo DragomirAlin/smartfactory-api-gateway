@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/med", "/api-v1/**")
                 .hasAuthority("SCOPE_read")
                 .antMatchers(HttpMethod.POST, "/api/foos")
