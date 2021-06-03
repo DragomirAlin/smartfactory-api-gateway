@@ -3,7 +3,10 @@ package ro.dragomiralin.gateway.client;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import ro.dragomiralin.gateway.client.dto.Data;
 import ro.dragomiralin.gateway.client.dto.Message;
+
+import java.util.List;
 
 @FeignClient(name = "acquisition-data-mqtt-service")
 @RibbonClient(name = "acquisition-data-mqtt-service")
@@ -20,4 +23,10 @@ public interface DataAcquisitionClient {
 
     @PostMapping("/mqtt/subscribe")
     void subscribe(@RequestParam String topic);
+
+    @GetMapping("/data")
+    List<Data> allData();
+
+    @GetMapping("/data/{topic}")
+    List<Data> getDataByTopic(@PathVariable String topic);
 }

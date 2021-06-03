@@ -8,10 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import ro.dragomiralin.gateway.client.DataAcquisitionClient;
 import ro.dragomiralin.gateway.client.NotificationClient;
+import ro.dragomiralin.gateway.client.SubscriptionClient;
 import ro.dragomiralin.gateway.client.UserClient;
 
 @Configuration
-@EnableFeignClients(basePackageClasses = {UserClient.class, DataAcquisitionClient.class, NotificationClient.class})
+@EnableFeignClients(basePackageClasses = {UserClient.class, DataAcquisitionClient.class, NotificationClient.class, SubscriptionClient.class})
 public class FeignConfiguration {
 
     @Bean

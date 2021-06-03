@@ -5,8 +5,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ro.dragomiralin.gateway.client.DataAcquisitionClient;
+import ro.dragomiralin.gateway.client.dto.Data;
 import ro.dragomiralin.gateway.client.dto.Message;
 import ro.dragomiralin.gateway.client.dto.Response;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/mqtt")
@@ -35,4 +38,16 @@ public class AcquisitionController {
     public void subscribe(@AuthenticationPrincipal Jwt principal, @RequestParam String topic) {
         dataAcquisitionClient.subscribe(topic);
     }
+
+    @GetMapping("/data")
+    public List<Data> allData(@AuthenticationPrincipal Jwt principal) {
+        return dataAcquisitionClient.allData();
+    }
+
+    @GetMapping("/data/{topic}")
+    public List<Data> getDataByTopic(@AuthenticationPrincipal Jwt principal, @PathVariable String topic) {
+        return dataAcquisitionClient.getDataByTopic(topic);
+    }
+
+
 }
