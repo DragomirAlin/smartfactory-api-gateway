@@ -24,9 +24,9 @@ public interface DataAcquisitionClient {
     @PostMapping("/mqtt/subscribe")
     void subscribe(@RequestParam String topic);
 
-    @GetMapping("/data")
+    @GetMapping("/mqtt/data")
     List<Data> allData();
 
-    @GetMapping("/data/{topic}")
+    @GetMapping("/mqtt/data/{topic}")
     List<Data> getDataByTopic(@PathVariable String topic);
 }

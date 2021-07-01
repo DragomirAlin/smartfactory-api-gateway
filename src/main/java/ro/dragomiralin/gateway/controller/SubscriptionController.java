@@ -8,7 +8,7 @@ import ro.dragomiralin.gateway.client.dto.Subscription;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notification")
+@RequestMapping("/subscription")
 @RequiredArgsConstructor
 public class SubscriptionController {
     private final SubscriptionClient subscriptionClient;

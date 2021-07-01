@@ -12,7 +12,7 @@ import ro.dragomiralin.gateway.client.dto.Response;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mqtt")
+@RequestMapping("/acquisition")
 @RequiredArgsConstructor
 public class AcquisitionController {
     private final DataAcquisitionClient dataAcquisitionClient;
