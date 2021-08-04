@@ -113,6 +113,11 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>${spring-openapi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
