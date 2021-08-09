@@ -20,9 +20,9 @@ import static ro.dragomiralin.gateway.client.CoreClientConstants.CORE;
 
 @FeignClient(name = "acquisition-data-mqtt-service")
 @RibbonClient(name = "acquisition-data-mqtt-service")
-public interface DataAcquisitionClient extends AcquisitionApi {
+public interface DataAcquisitionClient {
 
-    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+    @CircuitBreaker(name = CORE)
     @RateLimiter(name = CORE)
     @GetMapping(value = "/mqtt")
     String getHome();
@@ -35,12 +35,12 @@ public interface DataAcquisitionClient extends AcquisitionApi {
     @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
     @RateLimiter(name = CORE)
     @DeleteMapping("/mqtt/unsubscribe")
-    ResponseEntity<Void> unsubscribe(@RequestParam String topic);
+    void unsubscribe(@RequestParam String topic);
 
     @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
     @RateLimiter(name = CORE)
     @PostMapping("/mqtt/subscribe")
-    ResponseEntity<CreatedDTO> subscribe(@RequestParam String topic);
+    void subscribe(@RequestParam String topic);
 
     @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
     @RateLimiter(name = CORE)
@@ -50,13 +50,13 @@ public interface DataAcquisitionClient extends AcquisitionApi {
     @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
     @RateLimiter(name = CORE)
     @GetMapping("/mqtt/data/{topic}")
-    ResponseEntity<List<DataDTO>> getDataByTopic(@PathVariable String topic);
+    List<DataDTO> getDataByTopic(@PathVariable String topic);
 
-    default ResponseEntity<Void> coreFallback(String id, CallNotPermittedException exception) {
-        throw new NoSuchElementException();
-    }
-
-    default ResponseEntity<Void> coreFallback(String id, Exception exception) {
-        throw new RuntimeException();
-    }
+//    default String coreFallback(String id, CallNotPermittedException exception) {
+//        throw new NoSuchElementException();
+//    }
+//
+//    default String coreFallback(String id, Exception exception) {
+//        throw new RuntimeException();
+//    }
 }

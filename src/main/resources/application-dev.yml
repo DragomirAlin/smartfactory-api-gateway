@@ -54,7 +54,7 @@ resilience4j:
     instances:
       core:
         registerHealthIndicator: true
-        slidingWindowSize: 10
+        slidingWindowSize: 2
         slidingWindowType: TIME_BASED
         permittedNumberOfCallsInHalfOpenState: 3
         minimumNumberOfCalls: 1
@@ -63,7 +63,7 @@ resilience4j:
   ratelimiter:
     instances:
       core:
-        limitForPeriod: 10
+        limitForPeriod: 2
         limitRefreshPeriod: 1s
         timeoutDuration: 0
         registerHealthIndicator: true
