@@ -60,7 +60,6 @@ resilience4j:
         minimumNumberOfCalls: 1
         waitDurationInOpenState: 10s
         failureRateThreshold: 10
-
   ratelimiter:
     instances:
       core:

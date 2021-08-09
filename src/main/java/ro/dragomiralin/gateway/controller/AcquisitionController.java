@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import ro.dragomiralin.api.specification.AcquisitionApi;
 import ro.dragomiralin.gateway.client.DataAcquisitionClient;
 import ro.dragomiralin.gateway.client.dto.Data;
 import ro.dragomiralin.gateway.client.dto.Message;
