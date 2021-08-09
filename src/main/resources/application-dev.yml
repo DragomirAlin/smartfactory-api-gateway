@@ -43,3 +43,29 @@ management:
     health:
       show-details: always
 
+springdoc:
+    api-docs:
+      enabled: false
+    swagger-ui:
+      url: /api.yaml
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      core:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        slidingWindowType: TIME_BASED
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 1
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 10
+
+  ratelimiter:
+    instances:
+      core:
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 100

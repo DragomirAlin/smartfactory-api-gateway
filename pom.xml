@@ -23,6 +23,7 @@
         <springfox.version>3.0.0</springfox.version>
         <databind.nullable.version>0.2.1</databind.nullable.version>
         <spring-openapi.version>1.4.8</spring-openapi.version>
+        <resilience4j.version>1.7.1</resilience4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -114,9 +115,19 @@
             <version>${spring-openapi.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
-            <version>1.0.2.RELEASE</version>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot2</artifactId>
+            <version>${resilience4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-circuitbreaker</artifactId>
+            <version>${resilience4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-timelimiter</artifactId>
+            <version>${resilience4j.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -150,8 +161,8 @@
                                 <java8>true</java8>
                                 <dateLibrary>java8</dateLibrary>
                                 <interfaceOnly>true</interfaceOnly>
-                                <apiPackage>ro.agilehub.javacourse.car.hire.api.specification</apiPackage>
-                                <modelPackage>ro.agilehub.javacourse.car.hire.api.model</modelPackage>
+                                <apiPackage>ro.dragomiralin.api.specification</apiPackage>
+                                <modelPackage>ro.dragomiralin.api.model</modelPackage>
                             </configOptions>
                         </configuration>
                     </execution>
