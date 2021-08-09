@@ -1,9 +1,11 @@
 package ro.dragomiralin.gateway.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import ro.agilehub.javacourse.car.hire.api.model.DataDTO;
 import ro.dragomiralin.gateway.client.DataAcquisitionClient;
 import ro.dragomiralin.gateway.client.dto.Data;
 import ro.dragomiralin.gateway.client.dto.Message;
@@ -45,7 +47,7 @@ public class AcquisitionController {
     }
 
     @GetMapping("/data/{topic}")
-    public List<Data> getDataByTopic(@AuthenticationPrincipal Jwt principal, @PathVariable String topic) {
+    public ResponseEntity<List<DataDTO>> getDataByTopic(@AuthenticationPrincipal Jwt principal, @PathVariable String topic) {
         return dataAcquisitionClient.getDataByTopic(topic);
     }
 
