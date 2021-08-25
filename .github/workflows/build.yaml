@@ -1,8 +1,10 @@
 name: Gateway Service CI
 on:
   push:
-    branches: [ main ]
-
+    branches:
+      - "!*"
+    tags:
+      - "v*"
 jobs:
   build:
     runs-on: ubuntu-latest
