@@ -18,8 +18,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuerUri: http://192.168.1.32:8083/auth/realms/smartfactory
-          jwkSetUri: http://192.168.1.32:8083/auth/realms/smartfactory/protocol/openid-connect/certs
+          issuerUri: http://keycloak:8083/auth/realms/smartfactory
+          jwkSetUri: http://keycloak:8083/auth/realms/smartfactory/protocol/openid-connect/certs
 server:
   port: 8080
 eureka:
@@ -30,7 +30,7 @@ eureka:
     fetchRegistry: true
     registry-fetch-interval-seconds: 5
     serviceUrl:
-      defaultZone: http://discUser:discPassword@192.168.1.32:8761/eureka
+      defaultZone: http://discUser:discPassword@discovery8761/eureka
 ribbon:
   eureka:
     enabled: true
