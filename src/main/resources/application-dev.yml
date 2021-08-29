@@ -31,7 +31,7 @@ eureka:
     fetchRegistry: true
     registry-fetch-interval-seconds: 5
     serviceUrl:
-      defaultZone: http://discUser:discPassword@discovery8761/eureka
+      defaultZone: http://discUser:discPassword@discovery:8761/eureka
 ribbon:
   eureka:
     enabled: true
