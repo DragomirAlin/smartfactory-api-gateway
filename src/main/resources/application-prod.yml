@@ -6,6 +6,7 @@ spring:
       discovery:
         enabled: true
         service-id: config
+      uri: config:8888
     loadbalancer:
       ribbon:
         enabled: true
@@ -30,7 +31,7 @@ eureka:
     fetchRegistry: true
     registry-fetch-interval-seconds: 5
     serviceUrl:
-      defaultZone: http://discUser:discPassword@192.168.1.5:8761/eureka
+      defaultZone: http://discUser:discPassword@localhost:8761/eureka
 ribbon:
   eureka:
     enabled: true
@@ -43,3 +44,28 @@ management:
     health:
       show-details: always
 
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    url: /api.yaml
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      core:
+        registerHealthIndicator: true
+        slidingWindowSize: 2
+        slidingWindowType: TIME_BASED
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 1
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 10
+  ratelimiter:
+    instances:
+      core:
+        limitForPeriod: 2
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 100
