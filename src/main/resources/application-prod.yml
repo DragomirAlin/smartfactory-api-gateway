@@ -1,12 +1,12 @@
 spring:
   application:
     name: gateway
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config
-      uri: config:8888
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config
+#      uri: localhost:8888
     loadbalancer:
       ribbon:
         enabled: true

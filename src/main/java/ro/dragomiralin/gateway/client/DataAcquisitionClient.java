@@ -22,33 +22,33 @@ import static ro.dragomiralin.gateway.client.CoreClientConstants.CORE;
 @RibbonClient(name = "acquisition-data-mqtt-service")
 public interface DataAcquisitionClient {
 
-    @CircuitBreaker(name = CORE)
-    @RateLimiter(name = CORE)
+//    @CircuitBreaker(name = CORE)
+//    @RateLimiter(name = CORE)
     @GetMapping(value = "/mqtt")
     String getHome();
 
-    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
-    @RateLimiter(name = CORE)
+//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+//    @RateLimiter(name = CORE)
     @PostMapping(value = "/mqtt/publish")
     void publish(@RequestBody Message message);
 
-    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
-    @RateLimiter(name = CORE)
+//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+//    @RateLimiter(name = CORE)
     @DeleteMapping("/mqtt/unsubscribe")
     void unsubscribe(@RequestParam String topic);
 
-    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
-    @RateLimiter(name = CORE)
+//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+//    @RateLimiter(name = CORE)
     @PostMapping("/mqtt/subscribe")
     void subscribe(@RequestParam String topic);
 
-    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
-    @RateLimiter(name = CORE)
+//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+//    @RateLimiter(name = CORE)
     @GetMapping("/mqtt/data")
     List<Data> allData();
 
-    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
-    @RateLimiter(name = CORE)
+//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+//    @RateLimiter(name = CORE)
     @GetMapping("/mqtt/data/{topic}")
     List<DataDTO> getDataByTopic(@PathVariable String topic);
 
