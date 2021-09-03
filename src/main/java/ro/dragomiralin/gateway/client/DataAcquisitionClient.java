@@ -18,8 +18,8 @@ import java.util.NoSuchElementException;
 
 import static ro.dragomiralin.gateway.client.CoreClientConstants.CORE;
 
-@FeignClient(name = "acquisition-data-mqtt-service")
-@RibbonClient(name = "acquisition-data-mqtt-service")
+@FeignClient(name = "acquisition")
+@RibbonClient(name = "acquisition")
 public interface DataAcquisitionClient {
 
 //    @CircuitBreaker(name = CORE)
