@@ -19,8 +19,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuerUri: http://localhost:8083/auth/realms/smartfactory
-          jwkSetUri: http://localhost:8083/auth/realms/smartfactory/protocol/openid-connect/certs
+          issuerUri: http://192.168.1.4:8083/auth/realms/smartfactory
+          jwkSetUri: http://192.168.1.4:8083/auth/realms/smartfactory/protocol/openid-connect/certs
 server:
   port: 8080
 eureka:
@@ -45,10 +45,10 @@ management:
       show-details: always
 
 springdoc:
-    api-docs:
-      enabled: false
-    swagger-ui:
-      url: /api.yaml
+  api-docs:
+    enabled: false
+  swagger-ui:
+    url: /api.yaml
 
 resilience4j:
   circuitbreaker:
