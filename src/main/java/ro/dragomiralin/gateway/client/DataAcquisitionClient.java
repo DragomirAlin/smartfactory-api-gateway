@@ -18,8 +18,8 @@ import java.util.NoSuchElementException;
 
 import static ro.dragomiralin.gateway.client.CoreClientConstants.CORE;
 
-@FeignClient(name = "acquisition")
-@RibbonClient(name = "acquisition")
+@FeignClient(name = "acquisition-service")
+@RibbonClient(name = "acquisition-service")
 public interface DataAcquisitionClient {
 
 //    @CircuitBreaker(name = CORE)
