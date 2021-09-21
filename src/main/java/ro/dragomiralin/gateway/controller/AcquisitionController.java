@@ -1,15 +1,17 @@
 package ro.dragomiralin.gateway.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import ro.dragomiralin.gateway.client.DataAcquisitionClient;
-import ro.dragomiralin.gateway.client.dto.Data;
 import ro.dragomiralin.gateway.client.dto.Message;
+import ro.dragomiralin.gateway.client.dto.PaginationResponse;
 import ro.dragomiralin.gateway.client.dto.Response;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/acquisition")
@@ -18,36 +20,42 @@ public class AcquisitionController {
     private final DataAcquisitionClient dataAcquisitionClient;
 
     @GetMapping
-    public Response getMqtt(@AuthenticationPrincipal Jwt principal) {
-        return Response.builder()
-                .response(dataAcquisitionClient.getHome())
-                .build();
+    public ResponseEntity<Response> getMqtt(@AuthenticationPrincipal Jwt principal) {
+        return new ResponseEntity<>(Response.builder()
+                .response(dataAcquisitionClient.getHome().getBody())
+                .build(), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/publish")
-    public void publish(@AuthenticationPrincipal Jwt principal, @RequestBody Message message) {
+    public ResponseEntity<Void> publish(@AuthenticationPrincipal Jwt principal, @RequestBody Message message) {
         dataAcquisitionClient.publish(message);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/unsubscribe")
-    public void unsubscribe(@AuthenticationPrincipal Jwt principal, @RequestParam String topic) {
+    public ResponseEntity<Void> unsubscribe(@AuthenticationPrincipal Jwt principal, @RequestParam String topic) {
         dataAcquisitionClient.unsubscribe(topic);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/subscribe")
-    public void subscribe(@AuthenticationPrincipal Jwt principal, @RequestParam String topic) {
+    public ResponseEntity<Void> subscribe(@AuthenticationPrincipal Jwt principal, @RequestParam String topic) {
         dataAcquisitionClient.subscribe(topic);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/data")
-    public List<Data> allData(@AuthenticationPrincipal Jwt principal) {
-        return dataAcquisitionClient.allData();
+    public ResponseEntity<PaginationResponse> allData(@AuthenticationPrincipal Jwt principal, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "25") int size) {
+        return dataAcquisitionClient.allData(page, size);
     }
 
-//    @GetMapping("/data/{topic}")
-//    public ResponseEntity<List<DataDTO>> getDataByTopic(@AuthenticationPrincipal Jwt principal, @PathVariable String topic) {
-//        return dataAcquisitionClient.getDataByTopic(topic);
-//    }
+    @GetMapping("/data/{topic}")
+    public ResponseEntity<PaginationResponse> getDataByTopic(@AuthenticationPrincipal Jwt principal, @PathVariable String topic, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "25") int size) {
+        return dataAcquisitionClient.getDataByTopic(topic, page, size);
+    }
 
-
+    @PostMapping("/data/search")
+    public ResponseEntity<PaginationResponse> searchData(@RequestBody Map<String, Object> params, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "25") int size) {
+        return dataAcquisitionClient.searchData(params, page, size);
+    }
 }

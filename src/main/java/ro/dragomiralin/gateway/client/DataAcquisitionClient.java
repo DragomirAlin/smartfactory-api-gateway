@@ -12,8 +12,10 @@ import ro.dragomiralin.api.model.DataDTO;
 import ro.dragomiralin.api.specification.AcquisitionApi;
 import ro.dragomiralin.gateway.client.dto.Data;
 import ro.dragomiralin.gateway.client.dto.Message;
+import ro.dragomiralin.gateway.client.dto.PaginationResponse;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static ro.dragomiralin.gateway.client.CoreClientConstants.CORE;
@@ -22,35 +24,38 @@ import static ro.dragomiralin.gateway.client.CoreClientConstants.CORE;
 @RibbonClient(name = "acquisition-service")
 public interface DataAcquisitionClient {
 
-//    @CircuitBreaker(name = CORE)
+    //    @CircuitBreaker(name = CORE)
 //    @RateLimiter(name = CORE)
     @GetMapping(value = "/mqtt")
-    String getHome();
+    ResponseEntity<String> getHome();
 
-//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+    //    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
 //    @RateLimiter(name = CORE)
     @PostMapping(value = "/mqtt/publish")
-    void publish(@RequestBody Message message);
+    ResponseEntity<Void> publish(@RequestBody Message message);
 
-//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+    //    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
 //    @RateLimiter(name = CORE)
     @DeleteMapping("/mqtt/unsubscribe")
-    void unsubscribe(@RequestParam String topic);
+    ResponseEntity<Void> unsubscribe(@RequestParam String topic);
 
-//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+    //    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
 //    @RateLimiter(name = CORE)
     @PostMapping("/mqtt/subscribe")
-    void subscribe(@RequestParam String topic);
+    ResponseEntity<Void> subscribe(@RequestParam String topic);
 
-//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+    //    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
 //    @RateLimiter(name = CORE)
     @GetMapping("/mqtt/data")
-    List<Data> allData();
+    ResponseEntity<PaginationResponse> allData(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "25") int size);
 
-//    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
+    //    @CircuitBreaker(name = CORE, fallbackMethod = "coreFallback")
 //    @RateLimiter(name = CORE)
     @GetMapping("/mqtt/data/{topic}")
-    List<DataDTO> getDataByTopic(@PathVariable String topic);
+    ResponseEntity<PaginationResponse> getDataByTopic(@PathVariable String topic, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "25") int size);
+
+    @PostMapping
+    ResponseEntity<PaginationResponse> searchData(@RequestBody Map<String, Object> params, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "25") int size);
 
 //    default String coreFallback(String id, CallNotPermittedException exception) {
 //        throw new NoSuchElementException();
