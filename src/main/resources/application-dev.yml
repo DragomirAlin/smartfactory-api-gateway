@@ -69,3 +69,7 @@ resilience4j:
         timeoutDuration: 0
         registerHealthIndicator: true
         eventConsumerBufferSize: 100
+
+
+name:
+  test:
