@@ -54,13 +54,11 @@ smartfactory:
       acquisition:
         exchange: mqtt_events
         queue: mqtt_gateway_queue
-        routingkey: mqtt_gateway_notify
 springdoc:
   api-docs:
     enabled: false
   swagger-ui:
     url: /api.yaml
-
 resilience4j:
   circuitbreaker:
     instances:
