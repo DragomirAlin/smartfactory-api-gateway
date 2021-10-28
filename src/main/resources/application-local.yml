@@ -4,7 +4,7 @@ spring:
   cloud:
     config:
       discovery:
-        enabled: true
+        enabled: false
         service-id: config
       uri: http://192.168.1.5:8888
     loadbalancer:
@@ -21,6 +21,11 @@ spring:
         jwt:
           issuerUri: http://192.168.1.5:8083/auth/realms/smartfactory
           jwkSetUri: http://192.168.1.5:8083/auth/realms/smartfactory/protocol/openid-connect/certs
+  rabbitmq:
+    host: 192.168.1.5
+    port: 5672
+    username: admin
+    password: admin
 server:
   port: 8080
 eureka:
@@ -43,7 +48,13 @@ management:
   endpoint:
     health:
       show-details: always
-
+smartfactory:
+  rabbitmq:
+    mqtt:
+      acquisition:
+        exchange: mqtt_events
+        queue: mqtt_gateway_queue
+        routingkey: mqtt_gateway_notify
 springdoc:
   api-docs:
     enabled: false
