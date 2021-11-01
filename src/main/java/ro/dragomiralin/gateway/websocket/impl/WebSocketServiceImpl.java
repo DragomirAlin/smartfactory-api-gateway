@@ -14,7 +14,7 @@ public class WebSocketServiceImpl implements WebSocketService {
     private final SimpMessagingTemplate template;
 
     @Override
-    public void notify(Data data) {
+    public void emit(Data data) {
         this.template.convertAndSend("/message",  data);
     }
 }

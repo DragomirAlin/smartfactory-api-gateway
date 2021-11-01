@@ -1,4 +1,4 @@
-package ro.dragomiralin.gateway.advice;
+package ro.dragomiralin.gateway.controller.advice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

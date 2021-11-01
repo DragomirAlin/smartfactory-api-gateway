@@ -16,6 +16,6 @@ public class RabbitMQListener {
     @RabbitListener(queues = "${smartfactory.rabbitmq.mqtt.acquisition.queue}")
     public void messageFromMonitoring(final Data data) {
         log.info("Received: {}", data);
-        webSocketService.notify(data);
+        webSocketService.emit(data);
     }
 }
