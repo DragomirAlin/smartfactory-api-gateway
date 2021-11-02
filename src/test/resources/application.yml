@@ -42,4 +42,9 @@ management:
   endpoint:
     health:
       show-details: always
-
+smartfactory:
+  rabbitmq:
+    mqtt:
+      acquisition:
+        exchange: mqtt_events
+        queue: mqtt_gateway_queue

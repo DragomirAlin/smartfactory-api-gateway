@@ -43,13 +43,17 @@ management:
   endpoint:
     health:
       show-details: always
-
+smartfactory:
+  rabbitmq:
+    mqtt:
+      acquisition:
+        exchange: mqtt_events
+        queue: mqtt_gateway_queue
 springdoc:
   api-docs:
     enabled: false
   swagger-ui:
     url: /api.yaml
-
 resilience4j:
   circuitbreaker:
     instances:
@@ -69,5 +73,3 @@ resilience4j:
         timeoutDuration: 0
         registerHealthIndicator: true
         eventConsumerBufferSize: 100
-name:
-  test:
