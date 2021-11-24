@@ -15,6 +15,11 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+    consul:
+      service-registry:
+        enabled: true
+      ribbon:
+        enabled: true
   security:
     oauth2:
       resourceserver:
@@ -28,18 +33,6 @@ spring:
     password: admin
 server:
   port: 8080
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    region: default
-    fetchRegistry: true
-    registry-fetch-interval-seconds: 5
-    serviceUrl:
-      defaultZone: http://discUser:discPassword@192.168.1.5:8761/eureka
-ribbon:
-  eureka:
-    enabled: true
 management:
   endpoints:
     web:
