@@ -1,6 +1,8 @@
 spring:
   application:
     name: gateway
+  main:
+    web-application-type: reactive
   cloud:
     loadbalancer:
       ribbon:
@@ -10,30 +12,12 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: employee
-          uri: lb://employee
+        - id: subscription
+          uri: http://localhost:8005
           predicates:
-            - Path=/employee/**
+            - Path=/subscription/**
           filters:
-            - RewritePath=/employee/(?<path>.*), /$\{path}
-        - id: department
-          uri: lb://department
-          predicates:
-            - Path=/department/**
-          filters:
-            - RewritePath=/department/(?<path>.*), /$\{path}
-        - id: organization
-          uri: lb://organization
-          predicates:
-            - Path=/organization/**
-          filters:
-            - RewritePath=/organization/(?<path>.*), /$\{path}
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuerUri: ${KEYCLOAK_URL}/auth/realms/smartfactory
-          jwkSetUri: ${KEYCLOAK_URL}/auth/realms/smartfactory/protocol/openid-connect/certs
+            - RewritePath=/subscription/(?<path>.*), /$\{path}
   rabbitmq:
     host: 192.168.1.5
     port: 5672
@@ -41,18 +25,6 @@ spring:
     password: admin
 server:
   port: 8080
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    region: default
-    fetchRegistry: true
-    registry-fetch-interval-seconds: 5
-    serviceUrl:
-      defaultZone: http://discUser:discPassword@discovery:8761/eureka
-ribbon:
-  eureka:
-    enabled: true
 management:
   endpoints:
     web:
@@ -72,22 +44,3 @@ springdoc:
     enabled: false
   swagger-ui:
     url: /api.yaml
-resilience4j:
-  circuitbreaker:
-    instances:
-      core:
-        registerHealthIndicator: true
-        slidingWindowSize: 2
-        slidingWindowType: TIME_BASED
-        permittedNumberOfCallsInHalfOpenState: 3
-        minimumNumberOfCalls: 1
-        waitDurationInOpenState: 10s
-        failureRateThreshold: 10
-  ratelimiter:
-    instances:
-      core:
-        limitForPeriod: 2
-        limitRefreshPeriod: 1s
-        timeoutDuration: 0
-        registerHealthIndicator: true
-        eventConsumerBufferSize: 100

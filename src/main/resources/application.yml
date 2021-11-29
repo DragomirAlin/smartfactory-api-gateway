@@ -12,18 +12,12 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: subscription-service
-          uri: http://localhost:8005
+        - id: subscription
+          uri: lb://subscription
           predicates:
             - Path=/subscription/**
           filters:
             - RewritePath=/subscription/(?<path>.*), /$\{path}
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuerUri: http://192.168.1.5:8083/auth/realms/smartfactory
-          jwkSetUri: http://192.168.1.5:8083/auth/realms/smartfactory/protocol/openid-connect/certs
   rabbitmq:
     host: 192.168.1.5
     port: 5672
