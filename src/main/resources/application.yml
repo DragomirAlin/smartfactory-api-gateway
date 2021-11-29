@@ -13,11 +13,23 @@ spring:
           enabled: true
       routes:
         - id: subscription
-          uri: lb://subscription
+          uri: http://localhost:8005
           predicates:
             - Path=/subscription/**
           filters:
             - RewritePath=/subscription/(?<path>.*), /$\{path}
+        - id: notification
+          uri: http://localhost:8004
+          predicates:
+            - Path=/notification/**
+          filters:
+            - RewritePath=/notification/(?<path>.*), /$\{path}
+        - id: acquisition
+          uri: http://localhost:8002
+          predicates:
+            - Path=/acquisition/**
+          filters:
+            - RewritePath=/acquisition/(?<path>.*), /$\{path}
   rabbitmq:
     host: 192.168.1.5
     port: 5672
