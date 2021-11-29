@@ -13,19 +13,19 @@ spring:
           enabled: true
       routes:
         - id: subscription
-          uri: http://localhost:8005
+          uri: lb://subscription
           predicates:
             - Path=/subscription/**
           filters:
             - RewritePath=/subscription/(?<path>.*), /$\{path}
         - id: notification
-          uri: http://localhost:8004
+          uri: lb://notification
           predicates:
             - Path=/notification/**
           filters:
             - RewritePath=/notification/(?<path>.*), /$\{path}
         - id: acquisition
-          uri: http://localhost:8002
+          uri: lb://acquisition
           predicates:
             - Path=/acquisition/**
           filters:
