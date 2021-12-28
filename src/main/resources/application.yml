@@ -7,6 +7,9 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+    kubernetes:
+      discovery:
+        all-namespaces: true
     gateway:
       discovery:
         locator:
