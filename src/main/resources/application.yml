@@ -27,9 +27,9 @@ spring:
         - id: acquisition
           uri: lb://acquisition
           predicates:
-            - Path=/acquisition/**
+            - Path=/mqtt/**
           filters:
-            - RewritePath=/acquisition/(?<path>.*), /$\{path}
+            - RewritePath=/mqtt/(?<path>.*), /$\{path}
   rabbitmq:
     host: ${RABBITMQ_HOST}
     port: ${RABBITMQ_PORT}

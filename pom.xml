@@ -25,6 +25,7 @@
         <spring-openapi.version>1.4.8</spring-openapi.version>
         <resilience4j.version>1.7.0</resilience4j.version>
         <spring-websocket.version>1.5.2.RELEASE</spring-websocket.version>
+        <spring-kubernetes-all.version>1.1.10.RELEASE</spring-kubernetes-all.version>
     </properties>
     <dependencies>
         <dependency>
@@ -81,6 +82,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
+            <version>${spring-kubernetes-all.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
