@@ -18,21 +18,21 @@ spring:
         - id: subscription
           uri: lb://subscription
           predicates:
-            - Path=/subscription/**
+            - Path=/api-v1/sub/**
           filters:
-            - RewritePath=/subscription/(?<path>.*), /$\{path}
+            - RewritePath=/api-v1/sub/(?<path>.*), /$\{path}
         - id: notification
           uri: lb://notification
           predicates:
-            - Path=/notification/**
+            - Path=/api-v1/notify/**
           filters:
-            - RewritePath=/notification/(?<path>.*), /$\{path}
+            - RewritePath=/api-v1/notify/(?<path>.*), /$\{path}
         - id: acquisition
           uri: lb://acquisition
           predicates:
-            - Path=/mqtt/**
+            - Path=/api-v1/acq/**
           filters:
-            - RewritePath=/mqtt/(?<path>.*), /$\{path}
+            - RewritePath=/api-v1/acq/(?<path>.*), /$\{path}
   rabbitmq:
     host: ${RABBITMQ_HOST}
     port: ${RABBITMQ_PORT}
