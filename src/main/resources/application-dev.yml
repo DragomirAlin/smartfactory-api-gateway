@@ -7,29 +7,32 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+    kubernetes:
+      discovery:
+        all-namespaces: true
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
         - id: subscription
-          uri: http://localhost:8005
+          uri: lb://subscription
           predicates:
             - Path=/subscription/**
           filters:
             - RewritePath=/subscription/(?<path>.*), /$\{path}
         - id: notification
-          uri: http://localhost:8004
+          uri: lb://notification
           predicates:
             - Path=/notification/**
           filters:
             - RewritePath=/notification/(?<path>.*), /$\{path}
         - id: acquisition
-          uri: http://localhost:8002
+          uri: lb://acquisition
           predicates:
-            - Path=/acquisition/**
+            - Path=/mqtt/**
           filters:
-            - RewritePath=/acquisition/(?<path>.*), /$\{path}
+            - RewritePath=/mqtt/(?<path>.*), /$\{path}
   rabbitmq:
     host: 192.168.1.5
     port: 5672
