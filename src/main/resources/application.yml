@@ -58,4 +58,4 @@ springdoc:
   swagger-ui:
     urls:
       - name: notification
-        url: /v3/api-docs/notification
+        url: /v3/api-docs
