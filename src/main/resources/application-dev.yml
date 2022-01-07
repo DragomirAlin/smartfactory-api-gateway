@@ -15,26 +15,35 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: subscription
+        - id: subscription-service
           uri: lb://subscription
           predicates:
-            - Path=/subscription/**
+            - Path=/api-v1/sub/**
           filters:
-            - RewritePath=/subscription/(?<path>.*), /$\{path}
+            - RewritePath=/api-v1/sub/(?<path>.*), /$\{path}
         - id: notification
-          uri: lb://notification
+#          uri: lb://notification-service
+          uri: http://localhost:8004
           predicates:
+#            - Path=/api-v1/notify/**
             - Path=/notification/**
           filters:
+#            - RewritePath=/api-v1/notify/(?<path>.*), /$\{path}
             - RewritePath=/notification/(?<path>.*), /$\{path}
-        - id: acquisition
+        - id: acquisition-service
           uri: lb://acquisition
           predicates:
-            - Path=/mqtt/**
+            - Path=/api-v1/acq/**
           filters:
-            - RewritePath=/mqtt/(?<path>.*), /$\{path}
+            - RewritePath=/api-v1/acq/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
   rabbitmq:
-    host: 192.168.1.5
+    host: 192.168.49.5
     port: 5672
     username: admin
     password: admin
@@ -54,8 +63,13 @@ smartfactory:
       acquisition:
         exchange: mqtt_events
         queue: mqtt_gateway_queue
+
 springdoc:
-  api-docs:
-    enabled: false
   swagger-ui:
-    url: /api.yaml
+    urls:
+      - name: notification
+        url: /v3/api-docs/notification
+#      - name: subscription
+#        url: /v3/api-docs/subscription
+#      - name: acquisition
+#        url: /v3/api-docs/acquisition

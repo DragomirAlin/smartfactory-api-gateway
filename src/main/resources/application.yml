@@ -54,8 +54,3 @@ smartfactory:
       acquisition:
         exchange: mqtt_events
         queue: mqtt_gateway_queue
-springdoc:
-  api-docs:
-    enabled: false
-  swagger-ui:
-    url: /api.yaml
