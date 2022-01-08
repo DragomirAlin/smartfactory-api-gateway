@@ -60,6 +60,3 @@ springdoc:
       urls:
         - name: notification
           url: /notification/v3/api-docs
-  group-configs:
-    - group: notification
-      paths-to-match: /notification/**
