@@ -1,7 +1,10 @@
 package ro.dragomiralin.gateway;
 
 import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.SwaggerUiConfigParameters;
+import org.springdoc.core.SwaggerUiConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -19,18 +22,32 @@ public class GatewayApplication {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
 
-	@Autowired
-	RouteDefinitionLocator locator;
-
 	@Bean
-	public List<GroupedOpenApi> apis() {
+	public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiParameters, RouteDefinitionLocator routeDefinitionLocator) {
 		List<GroupedOpenApi> groups = new ArrayList<>();
-		List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+		List<RouteDefinition> definitions = routeDefinitionLocator.getRouteDefinitions().collectList().block();
 		definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
 			String name = routeDefinition.getId().replaceAll("-service", "");
+			swaggerUiParameters.addGroup(name);
 			groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
 		});
+		groups.forEach(defi -> {
+			System.out.println(defi.getPathsToMatch());
+		});
 		return groups;
+	}
+
+	@Bean
+	public CommandLineRunner openApiGroups(
+			RouteDefinitionLocator locator,
+			SwaggerUiConfigParameters swaggerUiParameters) {
+		return args -> locator
+				.getRouteDefinitions().collectList().block()
+				.stream()
+				.map(RouteDefinition::getId)
+				.filter(id -> id.matches(".*-service"))
+				.map(id -> id.replace("-service", ""))
+				.forEach(swaggerUiParameters::addGroup);
 	}
 }
 
