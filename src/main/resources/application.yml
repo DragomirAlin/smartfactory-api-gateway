@@ -21,7 +21,7 @@ spring:
             - Path=/api-v1/sub/**
           filters:
             - RewritePath=/api-v1/sub/(?<path>.*), /$\{path}
-        - id: notification
+        - id: notification-service
           uri: lb://notification
           predicates:
             - Path=/notification/**
