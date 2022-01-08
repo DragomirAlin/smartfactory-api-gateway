@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenAPIConfiguration {
 
-    @Bean
-    public GroupedOpenApi publicApi() {
-        return GroupedOpenApi.builder().group("notification").pathsToMatch("/notification/**").build();
-    }
+//    @Bean
+//    public GroupedOpenApi publicApi() {
+//        return GroupedOpenApi.builder().group("notification").pathsToMatch("/notification/**").build();
+//    }
 }
