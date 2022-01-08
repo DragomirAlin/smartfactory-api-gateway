@@ -15,19 +15,19 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: subscription
+        - id: subscription-service
           uri: lb://subscription
           predicates:
             - Path=/api-v1/sub/**
           filters:
             - RewritePath=/api-v1/sub/(?<path>.*), /$\{path}
-        - id: notification
+        - id: notification-service
           uri: lb://notification
           predicates:
-            - Path=/api-v1/notify/**
+            - Path=/notification/**
           filters:
-            - RewritePath=/api-v1/notify/(?<path>.*), /$\{path}
-        - id: acquisition
+            - RewritePath=/notification/(?<path>.*), /$\{path}
+        - id: acquisition-service
           uri: lb://acquisition
           predicates:
             - Path=/api-v1/acq/**
@@ -58,4 +58,4 @@ springdoc:
   swagger-ui:
     urls:
       - name: notification
-        url: /api-v1/notify/v3/api-docs
+        url: /notification/v3/api-docs
