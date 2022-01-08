@@ -55,7 +55,18 @@ smartfactory:
         exchange: mqtt_events
         queue: mqtt_gateway_queue
 springdoc:
+  version: '@springdoc.version@'
   swagger-ui:
-    urls:
-      - name: notification
-        url: /notification/v3/api-docs
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+    swagger-ui:
+      urls:
+        - name: notification
+          url: /notification/v3/api-docs
+  show-actuator: true
+  group-configs:
+    - group: notification
+      paths-to-match: /notification/**

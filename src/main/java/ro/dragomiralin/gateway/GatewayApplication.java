@@ -22,20 +22,20 @@ public class GatewayApplication {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
 
-	@Bean
-	public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiParameters, RouteDefinitionLocator routeDefinitionLocator) {
-		List<GroupedOpenApi> groups = new ArrayList<>();
-		List<RouteDefinition> definitions = routeDefinitionLocator.getRouteDefinitions().collectList().block();
-		definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
-			String name = routeDefinition.getId().replaceAll("-service", "");
-			swaggerUiParameters.addGroup(name);
-			groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
-		});
-		groups.forEach(defi -> {
-			System.out.println(defi.getPathsToMatch());
-		});
-		return groups;
-	}
+//	@Bean
+//	public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiParameters, RouteDefinitionLocator routeDefinitionLocator) {
+//		List<GroupedOpenApi> groups = new ArrayList<>();
+//		List<RouteDefinition> definitions = routeDefinitionLocator.getRouteDefinitions().collectList().block();
+//		definitions.stream().filter(routeDefinition -> routeDefinition.getId().matches(".*-service")).forEach(routeDefinition -> {
+//			String name = routeDefinition.getId().replaceAll("-service", "");
+//			swaggerUiParameters.addGroup(name);
+//			groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
+//		});
+//		groups.forEach(defi -> {
+//			System.out.println(defi.getPathsToMatch());
+//		});
+//		return groups;
+//	}
 }
 
 
