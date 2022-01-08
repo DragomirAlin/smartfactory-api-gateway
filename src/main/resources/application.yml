@@ -21,7 +21,7 @@ spring:
             - Path=/api-v1/sub/**
           filters:
             - RewritePath=/api-v1/sub/(?<path>.*), /$\{path}
-        - id: notification-service
+        - id: notification
           uri: lb://notification
           predicates:
             - Path=/notification/**
@@ -55,16 +55,7 @@ smartfactory:
         exchange: mqtt_events
         queue: mqtt_gateway_queue
 springdoc:
-  version: '@springdoc.version@'
   swagger-ui:
-    display-request-duration: true
-    groups-order: DESC
-    operationsSorter: method
-    disable-swagger-default-url: true
-    use-root-path: true
     urls:
       - name: notification
         url: /notification/v3/api-docs
-  group-configs:
-    - group: notification
-      paths-to-match: /notification/**
