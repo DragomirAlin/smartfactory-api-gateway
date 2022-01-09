@@ -21,15 +21,15 @@ spring:
             - Path=/api/v1/sub/**
           filters:
             - RewritePath=/api/v1/sub/(?<path>.*), /$\{path}
-        - id: notification-service
-          uri: lb://notification
-#          uri: http://localhost:8004
+        - id: notification
+#          uri: lb://notification
+          uri: http://localhost:8004
           predicates:
-            - Path=/api/v1/notify/**
-#            - Path=/notification/**
+#            - Path=/api/v1/notify/**
+            - Path=/notification/**
           filters:
-            - RewritePath=/api/v1/notify/(?<path>.*), /$\{path}
-#            - RewritePath=/notification/(?<path>.*), /$\{path}
+#            - RewritePath=/api/v1/notify/(?<path>.*), /$\{path}
+            - RewritePath=/notification/(?<path>.*), /$\{path}
         - id: acquisition-service
           uri: lb://acquisition
           predicates:
@@ -68,7 +68,7 @@ springdoc:
   swagger-ui:
     urls:
       - name: notification
-        url: /v3/api-docs/notification
+        url: /notification/v3/api-docs
 #      - name: subscription
 #        url: /v3/api-docs/subscription
 #      - name: acquisition

@@ -11,6 +11,14 @@ spring:
       discovery:
         all-namespaces: true
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        globalcors:
+          corsConfigurations:
+            '[/**]':
+              allowedOrigins: "*"
+              allowedMethods: "*"
+              allowedHeaders: "*"
       discovery:
         locator:
           enabled: true
@@ -18,21 +26,21 @@ spring:
         - id: subscription-service
           uri: lb://subscription
           predicates:
-            - Path=/api-v1/sub/**
+            - Path=/api/v1/subscription/**
           filters:
-            - RewritePath=/api-v1/sub/(?<path>.*), /$\{path}
+            - RewritePath=/api/v1/subscription/(?<path>.*), /$\{path}
         - id: notification-service
           uri: lb://notification
           predicates:
-            - Path=/notification/**
+            - Path=/api/v1/notification/**
           filters:
-            - RewritePath=/notification/(?<path>.*), /$\{path}
+            - RewritePath=/api/v1/notification/(?<path>.*), /$\{path}
         - id: acquisition-service
           uri: lb://acquisition
           predicates:
-            - Path=/api-v1/acq/**
+            - Path=/api/v1/acquisition/**
           filters:
-            - RewritePath=/api-v1/acq/(?<path>.*), /$\{path}
+            - RewritePath=/api/v1/acquisition/(?<path>.*), /$\{path}
   rabbitmq:
     host: ${RABBITMQ_HOST}
     port: ${RABBITMQ_PORT}
@@ -58,4 +66,4 @@ springdoc:
   swagger-ui:
     urls:
       - name: notification
-        url: /notification/v3/api-docs
+        url: /api/v1/notification/v3/api-docs
